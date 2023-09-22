@@ -1,8 +1,11 @@
 @extends('layouts.home')
 
-@section('scripts')
+@section('script')
 @endsection
 
 @section('content')
-    <h1>Post</h1>
+    <div class="m-3">
+        <h2 class="pb-5 text-center">{{$post->title}}</h2>
+        <p class="mx-4 mb-3">{{$post->content}}</p>
+    </div>
 @endsection

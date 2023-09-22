@@ -6,12 +6,16 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script type="module">
-        @yield('script')
-    </script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @yield('script')
 </head>
 <body>
-    @yield('content')
+    @include('sections.header')
+
+    <div class="wrapper">
+        @yield('content')
+    </div>
+
+    @include('sections.footer')
 </body>
 </html>

@@ -1,1 +1,6 @@
-@import "bootstrap";
+@import "~bootstrap/dist/css/bootstrap.rtl.css";
+
+
+.wrapper{
+    min-height: calc(100vh - 109px);
+}

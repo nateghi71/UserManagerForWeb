@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('home.')->group(function (){
     Route::get('/', [HomeController::class , 'index'])->name('index');
-    Route::get('/article', [HomeController::class , 'show'])->name('show');
+    Route::get('/post/{post}', [HomeController::class , 'show'])->name('show');
     Route::get('/logIn', [LoginAndLogoutController::class , 'index'])->name('logInOut.index');
     Route::get('/logIn/logIn', [LoginAndLogoutController::class , 'logIn'])->name('logInOut.logIn');
     Route::get('/logOut', [LoginAndLogoutController::class , 'logOut'])->name('logInOut.logOut');
