@@ -6,12 +6,26 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script type="module">
-        @yield('script')
+        $(function (){
+            $('.js-fullHeight').css('min-height', $(document).outerHeight() - ($('.header').outerHeight() + $('.footer').outerHeight()));
+        });
     </script>
+    @yield('script')
 </head>
 <body>
-@yield('content')
+@include('sections.header' , ['title' => 'پیکربندی سایت'])
+
+<div class="w-100 row">
+    <div class="col-3">
+        @include('sections.sidebar')
+    </div>
+    <div  class="col-9">
+        @yield('content')
+    </div>
+</div>
+
+@include('sections.footer')
 </body>
 </html>

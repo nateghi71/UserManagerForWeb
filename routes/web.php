@@ -24,13 +24,13 @@ Route::name('home.')->group(function (){
     Route::get('/', [HomeController::class , 'index'])->name('index');
     Route::get('/post/{post}', [HomeController::class , 'show'])->name('show');
     Route::get('/logIn', [LoginAndLogoutController::class , 'index'])->name('logInOut.index');
-    Route::get('/logIn/logIn', [LoginAndLogoutController::class , 'logIn'])->name('logInOut.logIn');
-    Route::get('/logOut', [LoginAndLogoutController::class , 'logOut'])->name('logInOut.logOut');
-    Route::get('/register', [RegisterController::class , 'index'])->name('logInOut.index');
-    Route::get('/register/register', [RegisterController::class , 'register'])->name('logInOut.register');
+    Route::post('/logIn', [LoginAndLogoutController::class , 'logIn'])->name('logInOut.logIn');
+    Route::post('/logOut', [LoginAndLogoutController::class , 'logOut'])->name('logInOut.logOut');
+    Route::get('/register', [RegisterController::class , 'index'])->name('register.index');
+    Route::post('/register', [RegisterController::class , 'register'])->name('register.register');
 });
 
-Route::prefix('admin')->name('admin.')->group(function (){
+Route::prefix('/admin')->name('admin.')->group(function (){
     Route::resource('users' , UserController::class);
     Route::resource('roles' , RoleController::class);
     Route::resource('permissions' , PermissionController::class);
