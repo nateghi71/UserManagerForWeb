@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between m-4">
         <h5 class="font-weight-bold">لیست کاربران </h5>
         <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.users.create')}}">
-            ایجاد دسته بندی
+            ایجاد کاربر
         </a>
     </div>
     <div>

@@ -4,8 +4,12 @@
 @endsection
 
 @section('content')
-    <h5 class="font-weight-bold m-4">ایجاد کاربران </h5>
-
+    <div class="d-flex justify-content-between m-4">
+        <h5 class="font-weight-bold">ایجاد کاربران </h5>
+        <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.users.index')}}">
+            نمایش کاربران
+        </a>
+    </div>
     <div class="m-5 d-flex justify-content-center">
         <form action="{{route('admin.users.store')}}" method="post" class="w-50">
             @csrf
@@ -27,6 +31,16 @@
             <div class="mb-3">
                 <label class="form-label" for="confirm-password">تکرار کلمه عبور</label>
                 <input type="confirm-password" name="confirm-password" id="confirm-password" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="role">نقش</label>
+                <select class="form-select" name="role" id="role">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
             </div>
 
             <button type="button" class="w-100 btn btn-primary mb-4">ثبت نام</button>
