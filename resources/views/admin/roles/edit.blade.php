@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('script')
+    <script type="module">
+        $(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -21,6 +26,24 @@
             <div class="mb-3">
                 <label class="form-label" for="label">برچسب</label>
                 <input type="text" name="label" id="label" value="{{$role->label}}" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="permission">مجوز دسترسی</label>
+                <select class="form-select select2" name="permission" id="permission" multiple="multiple">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
             </div>
 
             <button type="button" class="w-100 btn btn-primary mb-4">ویرایش</button>

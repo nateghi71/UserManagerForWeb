@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -29,7 +30,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'string|required',
+            'text' => 'string|required',
+        ]);
+        $user = User::find(1);
+
+        $user->posts()->create([
+            'title' => $request->title,
+            'text' => $request->text
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -51,16 +63,28 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'string|required',
+            'text' => 'string|required',
+        ]);
+        $user = User::find(1);
+
+        $user->posts()->update([
+            'title' => $request->title,
+            'text' => $request->text
+        ]);
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->back();
     }
 }

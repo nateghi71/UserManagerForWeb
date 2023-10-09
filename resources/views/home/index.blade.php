@@ -16,7 +16,7 @@
     @foreach($posts as $post)
     <div class="m-3">
         <h2 class="pb-2">{{$post->title}}</h2>
-        <p id="summaryText-{{$post->id}}" class="w-25">{{$post->content}}</p>
+        <p id="summaryText-{{$post->id}}" class="w-25">{{$post->text}}</p>
         <a href="{{route('home.show' , ['post' => $post->id])}}" class="text-decoration-none text-primary"> ادامه مطلب ... </a>
         <hr>
     </div>

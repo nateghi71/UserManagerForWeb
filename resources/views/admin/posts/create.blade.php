@@ -3,7 +3,7 @@
 @section('script')
     <script type="module">
         $(function (){
-            ClassicEditor.create( document.querySelector( '#content' ) ).catch( error => {
+            ClassicEditor.create( document.querySelector( '#text' ) ).catch( error => {
                 console.error( error );
             } );
         })
@@ -18,6 +18,7 @@
         </a>
     </div>
     <div class="m-5 d-flex justify-content-center">
+
         <form action="{{route('admin.posts.store')}}" method="post" class="w-50">
             @csrf
             <div class="mb-3">
@@ -26,14 +27,22 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="content">متن</label>
-                <textarea name="content" id="content" class="form-control"></textarea>
+                <label class="form-label" for="text">متن</label>
+                <textarea name="text" id="text" class="form-control"></textarea>
             </div>
 
-            <button type="button" class="w-100 btn btn-primary mb-4">ارسال</button>
+            <button type="submit" class="w-100 btn btn-primary mb-4">ارسال</button>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
         </form>
     </div>
-
-
 @endsection

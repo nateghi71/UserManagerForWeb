@@ -19,8 +19,8 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="content">متن</label>
-                <textarea name="content" id="content" class="form-control" disabled >{{$post->content}}</textarea>
+                <label class="form-label" for="text">متن</label>
+                <textarea name="text" id="text" class="form-control" disabled >{{$post->text}}</textarea>
             </div>
 
         </form>

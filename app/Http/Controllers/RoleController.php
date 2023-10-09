@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.roles.create');//
+        $permissions = Permission::all();
+        return view('admin.roles.create' , compact('permissions'));//
     }
 
     /**
@@ -29,7 +31,23 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'string|required',
+            'label' => 'string|required',
+            'permissions'  => 'required',
+            'permissions.*' => 'string|required',
+        ]);
+
+        $role = Role::create([
+            'name' => $request->name,
+            'label' => $request->label
+        ]);
+
+        foreach ($request->permissions as $permissionId)
+        {
+            $role->permissions()->attach($permissionId);
+        }
+        return redirect()->back();
     }
 
     /**
@@ -51,16 +69,35 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $request->validate([
+            'name' => 'string|required',
+            'label' => 'string|required',
+            'permissions'  => 'required',
+            'permissions.*' => 'string|required',
+        ]);
+
+        $role->update([
+            'name' => $request->name,
+            'label' => $request->label
+        ]);
+
+        $role->permissions()->detach();
+        foreach ($request->permissions as $permissionId)
+        {
+            $role->permissions()->attach($permissionId);
+        }
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        //
+        $role->permissions()->detach();
+        $role->delete();
+        return redirect()->back();
     }
 }

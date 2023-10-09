@@ -23,7 +23,7 @@
                 <input type="text" name="label" id="label" class="form-control" />
             </div>
 
-            <button type="button" class="w-100 btn btn-primary mb-4">ارسال</button>
+            <button type="submit" class="w-100 btn btn-primary mb-4">ارسال</button>
 
         </form>
     </div>

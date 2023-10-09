@@ -29,7 +29,17 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'label' => 'required|string',
+        ]);
+
+        Permission::create([
+            'name' => $request->name,
+            'label' => $request->label,
+        ]);
+
+        return back();
     }
 
     /**
@@ -51,16 +61,27 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Permission $permission)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'label' => 'required|string',
+        ]);
+
+        $permission->update([
+            'name' => $request->name,
+            'label' => $request->label,
+        ]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+        return back();
     }
 }

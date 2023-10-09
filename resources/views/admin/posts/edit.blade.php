@@ -18,19 +18,21 @@
         </a>
     </div>
     <div class="m-5 d-flex justify-content-center">
-        <form action="{{route('admin.posts.edit' , ['post' => $post->id])}}" method="post" class="w-50">
+        <form action="{{route('admin.posts.update' , ['post' => $post->id])}}" method="post" class="w-50">
             @csrf
+            @method('put')
+
             <div class="mb-3">
                 <label class="form-label" for="title">موضوع</label>
                 <input type="text" name="title" id="title" value="{{$post->title}}" class="form-control" />
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="content">متن</label>
-                <textarea name="content" id="content" class="form-control">{{$post->content}}</textarea>
+                <label class="form-label" for="text">متن</label>
+                <textarea name="text" id="text" class="form-control">{{$post->text}}</textarea>
             </div>
 
-            <button type="button" class="w-100 btn btn-primary mb-4">ویرایش</button>
+            <button type="submit" class="w-100 btn btn-primary mb-4">ویرایش</button>
 
         </form>
     </div>
