@@ -9,14 +9,6 @@
             <div class="alert alert-danger">
                 {{ session('email') }}
             </div>
-        @elseif($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
         @endif
 
         <p class="fs-4 text-center">اطلاعات خواسته شده را وارد کنید.</p>
@@ -26,10 +18,16 @@
                 <diV class="mb-3">
                     <label for="email" class="form-label">ایمیل</label>
                     <input type="email" name="email" id="email" class="form-control">
+                    @error('email')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </diV>
                 <diV class="mb-3">
                     <label for="password " class="form-label">پسورد</label>
                     <input type="password" name="password" id="password" class="form-control">
+                    @error('password')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </diV>
                 <diV class="mb-4">
                     <label for="password_confirmation" class="form-label">تایید پسورد</label>

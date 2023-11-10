@@ -24,11 +24,17 @@
             <div class="mb-3">
                 <label class="form-label" for="title">موضوع</label>
                 <input type="text" name="title" id="title" class="form-control" />
+                @error('title')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="text">متن</label>
                 <textarea name="text" id="text" class="form-control"></textarea>
+                @error('text')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <button type="submit" class="w-100 btn btn-primary mb-4">ارسال</button>

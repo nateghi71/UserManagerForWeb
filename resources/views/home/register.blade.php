@@ -19,18 +19,27 @@
             <div class="mb-3">
                 <label class="form-label" for="name">نام</label>
                 <input type="name" name="name" id="name" class="form-control" />
+                @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Email input -->
             <div class="mb-3">
                 <label class="form-label" for="email">ایمیل</label>
                 <input type="email" name="email" id="email" class="form-control" />
+                @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Password input -->
             <div class="mb-4">
                 <label class="form-label" for="password">کلمه عبور</label>
                 <input type="password" name="password" id="password" class="form-control" />
+                @error('password')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Password input -->

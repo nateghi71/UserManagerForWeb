@@ -22,11 +22,17 @@
             <div class="mb-3">
                 <label class="form-label" for="name">نام</label>
                 <input type="text" name="name" id="name" value="{{$role->name}}" class="form-control" />
+                @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="label">برچسب</label>
                 <input type="text" name="label" id="label" value="{{$role->label}}" class="form-control" />
+                @error('label')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="mb-3">

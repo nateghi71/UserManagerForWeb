@@ -5,23 +5,29 @@
 
 @section('content')
     <div class="d-flex justify-content-center pt-5">
-        @if(session()->has('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
         <form action="{{route('login.handle')}}" method="post" class="w-25 bg-light p-4 rounded-4">
             @csrf
+            @if(session()->has('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <!-- Email input -->
             <div class="mb-3">
                 <label class="form-label" for="email">ایمیل</label>
                 <input type="email" name="email" id="email" class="form-control" value="{{old('email')}}" />
+                @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Password input -->
             <div class="mb-3">
                 <label class="form-label" for="password">کلمه عبور</label>
                 <input type="password" name="password" id="password" class="form-control" value="{{old('password')}}" />
+                @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Checkbox -->
@@ -45,6 +51,7 @@
                     <a href="{{route('password.request')}}" class="text-decoration-none">فراموشی پسورد؟</a>
                 </div>
             </div>
+
         </form>
     </div>
 
