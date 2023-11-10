@@ -20,7 +20,7 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label" for="name">نام</label>
-                <input type="text" name="name" id="name" class="form-control" />
+                <input type="text" name="name" id="name" class="form-control"  />
             </div>
 
             <div class="mb-3">

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +19,6 @@ class UserController extends Controller
     {
         $users = User::paginate(10);
         return view('admin.users.index' , compact('users'));
-
     }
 
     /**
@@ -22,8 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
-
+        $roles = Role::all();
+        return view('admin.users.create' , compact('roles'));
     }
 
     /**
@@ -31,7 +35,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed|min:3',
+            'role' => 'required',
+        ]);
+
+        try{
+            DB::beginTransaction();
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            $user->roles()->attach($request->role);
+
+            $user->markEmailAsVerified ();
+            Auth::login($user);
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            DB::rollBack();
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+        return back();
     }
 
     /**
@@ -39,7 +70,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.users.show' , compact('user'));
+        $roles = Role::all();
+        return view('admin.users.show' , compact('user' , 'roles'));
     }
 
     /**
@@ -47,22 +79,41 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit' , compact('user'));
+        $roles = Role::all();
+        return view('admin.users.edit' , compact('user' , 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:3',
+            'role' => 'required',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        $user->roles()->detach();
+        $user->roles()->attach($request->role);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->roles()->detach();
+        $user->delete();
+        return back();
     }
 }

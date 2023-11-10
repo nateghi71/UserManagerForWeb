@@ -5,7 +5,16 @@
 
 @section('content')
     <div class="d-flex justify-content-center pt-5">
-        <form action="{{route('home.register.register')}}" method="post" class="w-25 bg-light p-4 rounded-4">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{route('register.handle')}}" method="post" class="w-25 bg-light p-4 rounded-4">
            @csrf
             <div class="mb-3">
                 <label class="form-label" for="name">نام</label>
@@ -26,16 +35,16 @@
 
             <!-- Password input -->
             <div class="mb-4">
-                <label class="form-label" for="confirm-password">تکرار کلمه عبور</label>
-                <input type="confirm-password" name="confirm-password" id="confirm-password" class="form-control" />
+                <label class="form-label" for="password_confirmation">تکرار کلمه عبور</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" />
             </div>
 
             <!-- Submit button -->
-            <button type="button" class="w-100 btn btn-primary mb-4">ثبت نام</button>
+            <button type="submit" class="w-100 btn btn-primary mb-4">ثبت نام</button>
 
             <div class="text-center">
                 <!-- Register buttons -->
-                <p>عضو هستم؟ <a href="{{route('home.logInOut.index')}}" class="text-decoration-none">ورود</a></p>
+                <p>عضو هستم؟ <a href="{{route('login')}}" class="text-decoration-none">ورود</a></p>
             </div>
 
         </form>

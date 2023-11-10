@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('script')
+    <script type="module">
+        $(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -32,7 +37,18 @@
                 <label class="form-label" for="role">کلمه عبور</label>
                 <input type="text" name="role" value="{{1}}" id="role" class="form-control" disabled />
             </div>
-\
+
+            <div class="mb-3">
+                <label class="form-label" for="role">نقش</label>
+                <select class="form-select select2" name="role" id="role" disabled>
+                    @foreach($roles as $role)
+                        <option value="{{$role->id}}"
+                            {{in_array($role->id , $user->roles()->pluck('id')->toArray()) ? 'selected' : ''}}>
+                            {{$role->label}}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
         </form>
     </div>
 

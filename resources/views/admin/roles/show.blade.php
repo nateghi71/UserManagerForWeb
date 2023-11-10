@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
 @section('script')
+    <script type="module">
+        $(function() {
+            $('.select2').select2();
+        });
+    </script>
+
 @endsection
 
 @section('content')
@@ -21,6 +27,18 @@
             <div class="mb-3">
                 <label class="form-label" for="label">برچسب</label>
                 <input type="text" name="label" id="label" value="{{$role->label}}" class="form-control" disabled />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="permissions">مجوز دسترسی</label>
+                <select class="form-select select2" name="permissions[]" id="permissions" multiple="multiple" disabled>
+                    @foreach($permissions as $permission)
+                        <option value="{{$permission->id}}"
+                            {{in_array($permission->id, $role->permissions()->pluck('id')->toArray()) ? 'selected' : ''}}>
+                            {{$permission->label}}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
         </form>

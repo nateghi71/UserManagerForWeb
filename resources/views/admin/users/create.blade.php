@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('script')
+    <script type="module">
+        $(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -15,35 +20,46 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label" for="name">نام</label>
-                <input type="text" name="name" id="name" class="form-control" />
+                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" />
+                @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="email">ایمیل</label>
-                <input type="email" name="email" id="email" class="form-control" />
+                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" />
+                @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="password">کلمه عبور</label>
-                <input type="password" name="password" id="password" class="form-control" />
+                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" />
+                @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="confirm-password">تکرار کلمه عبور</label>
-                <input type="confirm-password" name="confirm-password" id="confirm-password" class="form-control" />
+                <label class="form-label" for="password_confirmation">تکرار کلمه عبور</label>
+                <input type="confirm-password" name="password_confirmation" id="password_confirmation" class="form-control" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="role">نقش</label>
-                <select class="form-select" name="role" id="role">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                <select class="form-select select2 @error('role') is-invalid @enderror" name="role" id="role">
+                    @foreach($roles as $role)
+                        <option value="{{$role->id}}">{{$role->label}}</option>
+                    @endforeach
                 </select>
+                @error('role')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
-            <button type="button" class="w-100 btn btn-primary mb-4">ثبت نام</button>
+            <button type="submit" class="w-100 btn btn-primary mb-4">ثبت نام</button>
 
         </form>
     </div>

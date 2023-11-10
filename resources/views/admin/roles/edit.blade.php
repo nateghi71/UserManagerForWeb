@@ -16,8 +16,9 @@
         </a>
     </div>
     <div class="m-5 d-flex justify-content-center">
-        <form action="{{route('admin.roles.edit' , ['role' => $role->id])}}" method="post" class="w-50">
+        <form action="{{route('admin.roles.update' , ['role' => $role->id])}}" method="post" class="w-50">
             @csrf
+            @method('put')
             <div class="mb-3">
                 <label class="form-label" for="name">نام</label>
                 <input type="text" name="name" id="name" value="{{$role->name}}" class="form-control" />
@@ -29,24 +30,18 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="permission">مجوز دسترسی</label>
-                <select class="form-select select2" name="permission" id="permission" multiple="multiple">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
+                <label class="form-label" for="permissions">مجوز دسترسی</label>
+                <select class="form-select select2" name="permissions[]" id="permissions" multiple="multiple">
+                    @foreach($permissions as $permission)
+                        <option value="{{$permission->id}}"
+                            {{in_array($permission->id, $role->permissions()->pluck('id')->toArray()) ? 'selected' : ''}}>
+                            {{$permission->label}}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
-            <button type="button" class="w-100 btn btn-primary mb-4">ویرایش</button>
+            <button type="submit" class="w-100 btn btn-primary mb-4">ویرایش</button>
 
         </form>
     </div>
