@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Permission::class, 'permission');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
         $permissions = Permission::paginate(10);
         return view('admin.permissions.index' , compact('permissions'));
     }

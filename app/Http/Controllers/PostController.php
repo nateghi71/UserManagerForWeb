@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,9 +39,8 @@ class PostController extends Controller
             'title' => 'string|required',
             'text' => 'string|required',
         ]);
-        $user = User::find(1);
 
-        $user->posts()->create([
+        Auth::user()->posts()->create([
             'title' => $request->title,
             'text' => $request->text
         ]);
@@ -69,9 +73,8 @@ class PostController extends Controller
             'title' => 'string|required',
             'text' => 'string|required',
         ]);
-        $user = User::find(1);
 
-        $user->posts()->update([
+        Auth::user()->posts()->update([
             'title' => $request->title,
             'text' => $request->text
         ]);
